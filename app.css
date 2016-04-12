@@ -1,4 +1,12 @@
 /* app css stylesheet */
+body{
+  background: #663300;
+}
+
+.well {
+	background: #cc9900;
+	border: #663300;
+}
 
 .menu {
   list-style: none;
@@ -27,4 +35,10 @@
 .menu > li:nth-child(1):before {
   content: "";
   padding: 0;
+}
+
+#curr {
+    width: 30%;
+    height: 30%;
+    padding-right: 5px;
 }
