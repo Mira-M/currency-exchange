@@ -1,1 +1,48 @@
-<p>Let's Convert Some Currency Here!!!</p>
+<div class="container-fluid">
+	<div class="well">
+   <form role = "form">
+      <div class = "row">
+         
+         <div class = "col-sm-6">
+            <div class = "input-group">
+               
+               <div class = "input-group-btn">
+                  <button type = "button" class = "btn btn-default dropdown-toggle" 
+                     data-toggle = "dropdown">
+                     Base Country 
+                     <span class = "caret"></span>
+                  </button>
+                  
+                  <ul class = "dropdown-menu">
+                     <li data-ng-repeat="country in countries"><a href = "#"><img id="curr" ng-src="http://localhost:8888/currency-exchange{{country.img}}">{{ country.code }}</a></li>
+                  </ul>
+               </div><!-- /btn-group -->
+               
+               <input type = "text" class = "form-control">
+            </div><!-- /input-group -->
+         </div><!-- /.col-lg-6 -->
+         
+         <div class = "col-sm-6">
+            <div class = "input-group">
+               
+               <input type = "text" class = "form-control">
+               <div class = "input-group-btn">
+                  
+                  <button type = "button" class = "btn btn-default dropdown-toggle" 
+                     data-toggle = "dropdown">
+                     Destination Country 
+                     <span class = "caret"></span>
+                  </button>
+                  
+                  <ul class = "dropdown-menu pull-right">
+                     <li data-ng-repeat="country in countries"><a href = "#"><img id="curr" ng-src="http://localhost:8888/currency-exchange{{country.img}}">{{ country.code }}</a></li>
+                  </ul>
+               </div><!-- /btn-group -->
+               
+            </div><!-- /input-group -->
+         </div><!-- /.col-lg-6 -->
+         
+      </div><!-- /.row -->
+   </form>
+   </div>
+</div>
