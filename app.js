@@ -3,13 +3,13 @@
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
   'ngRoute',
-  'myApp.view1',
-  'myApp.view2',
+  'myApp.ConversionController',
+  'myApp.HistoricalController',
   'myApp.version'
 ]).
 
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/view1'});
+  $routeProvider.otherwise({redirectTo: '/conversion'});
 }]).
 
 service('RestController', ['$http', function($http){
@@ -31,6 +31,7 @@ service('RestController', ['$http', function($http){
 		{img : '/components/img/CHY_China.jpg', full_name : 'China', code: 'CHY'},
 		{img : '/components/img/CZK_CzechRepub.jpg', full_name : 'Czech Republic', code: 'CZK'},
 		{img : '/components/img/DKK_Denmark.jpg', full_name : 'Denmark', code: 'DKK'},
+		{img : '/components/img/EUR_Europe.jpg', full_name : 'Europe', code: 'EUR'},
 		{img : '/components/img/GBP_GreatBritian.jpg', full_name : 'Great Britain', code: 'GBP'},
 		{img : '/components/img/HRK_Croatia.jpg', full_name : 'Croatia', code: 'HRK'},
 		{img : '/components/img/HUF_Hungary.jpg', full_name : 'Hungary', code: 'HUF'},
