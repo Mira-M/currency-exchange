@@ -10,9 +10,9 @@ angular.module('myApp', [
 
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/conversion'});
-}]).
+}])
 
-service('RestController', ['$http', function($http){
+.service('RestController', ['$http', function($http){
 	
 	this.get_latest_rates = function(base_country){
 		return $http.get('http://api.fixer.io/latest?base=' + base_country)
@@ -21,6 +21,10 @@ service('RestController', ['$http', function($http){
 	this.get_previous_rates = function(previous_date){
 		return $http.get('http://api.fixer.io/' + previous_date)	
 	};
+	
+	this.get_current_rate = function(country){
+		return $http.get('http://api.fixer.io/latest?symbols=' + country)
+	}
 	
 	this.countries =
 	   [{img : '/components/img/AUD_Australia.jpg', full_name : 'Australia', code: 'AUD'},
