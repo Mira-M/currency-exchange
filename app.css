@@ -42,3 +42,12 @@ body{
     height: 30%;
     padding-right: 5px;
 }
+
+.col-lg-12.display {
+    height: 200px;
+    background-color: lemonchiffon;
+    /* padding-top: 20px; */
+    border-radius: 20px;
+    margin-bottom: 20px;
+    margin-top: 15px;
+}
