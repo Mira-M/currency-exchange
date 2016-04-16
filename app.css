@@ -55,3 +55,13 @@ body{
     padding-top: 5%;
     text-align: center;
 }
+
+.results {
+    border-radius: 20px;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-bottom: 25px;
+    margin-top: 10px;
+    padding-top: 5%;
+    text-align: center;
+}
