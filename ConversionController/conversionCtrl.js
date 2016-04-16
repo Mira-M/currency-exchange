@@ -19,16 +19,42 @@ angular.module('myApp.ConversionController', ['ngRoute'])
 		$scope.base= base_country;
 	};
 	
-/*
-		RestController.get_latest_rates(base_country)
-		.then(function(response){
+	$scope.get_conversion = function(){
+		$log.debug("Entering Get Conversion");
+		
+		if ($scope.base != undefined && $scope.destination != undefined){
 			
-			$scope.latest_rates = response.data;
+			RestController.get_latest_rates($scope.base)
+				.then(function(response){
 			
-			$log.debug($scope.latest_rates);
-			$log.debug($scope.latest_rates.rates['AUD'])
-		});
-*/
+				$scope.latest_rates = response.data;
+				$scope.conversion = $scope.latest_rates.rates[$scope.destination];
+				
+				$log.debug($scope.latest_rates);
+				$log.debug($scope.conversion);
+			});
+		};	
+		
+		if ($scope.base != undefined){
+			
+			RestController.get_current_rate($scope.base)
+				.then(function(response){
+					$scope.current_rate = response.data;
+					$scope.instant_base_display = $scope.current_rate.rates[$scope.base];
+			});
+		};	
+		
+		if ($scope.destination != undefined){
+			
+			RestController.get_current_rate($scope.destination)
+				.then(function(response){
+					$scope.current_rate = response.data;
+					$scope.instant_destination_display = $scope.current_rate.rates[$scope.destination];
+			});
+		};	
+	};
+	
+		
 
 	
 	$scope.countries = RestController.countries;
