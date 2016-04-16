@@ -1,6 +1,20 @@
 <div class="container-fluid">
 	<i class="fa fa-money fa-5x" aria-hidden="true"></i>
 	<div class="well">
+		<div class="row">
+			<div class="col-lg-12 display">
+				<div class="row">
+					<div class="col-sm-6" data-ng-if="base">
+						<span data-ng-model="base">{{ base }} : </span>
+						test
+					</div>
+					<div class="col-sm-6" data-ng-if="destination">
+						<span data-ng-model="destination"> {{ destination }} : </span>
+						test
+					</div>
+				</div>
+			</div>
+		</div>
    <form role = "form">
       <div class = "row">
          
@@ -15,18 +29,18 @@
                   </button>
                   
                   <ul class = "dropdown-menu">
-                     <li data-ng-repeat="country in countries"><a href = "#"><img id="curr" ng-src="http://miramollar.com/cmsc495{{country.img}}">{{ country.code }}</a></li>
+                     <li data-ng-repeat="country in countries"><a href data-ng-click="set_base_country(country.code)"><img id="curr" ng-src="http://miramollar.com/cmsc495{{country.img}}">{{ country.code }}</a></li>
                   </ul>
                </div><!-- /btn-group -->
                
-               <input type = "text" class = "form-control">
+               <input type = "text" class = "form-control" data-ng-model="base" value="{{ base }}">
             </div><!-- /input-group -->
          </div><!-- /.col-lg-6 -->
          
          <div class = "col-sm-6">
             <div class = "input-group">
                
-               <input type = "text" class = "form-control">
+               <input type = "text" class = "form-control" data-ng-model="destination" value="{{ destination }}">
                <div class = "input-group-btn">
                   
                   <button type = "button" class = "btn btn-default dropdown-toggle" 
@@ -36,7 +50,7 @@
                   </button>
                   
                   <ul class = "dropdown-menu pull-right">
-                     <li data-ng-repeat="country in countries"><a href = "#"><img id="curr" ng-src="http://miramollar.com/cmsc495{{country.img}}">{{ country.code }}</a></li>
+                     <li data-ng-repeat="country in countries"><a href data-ng-click="set_destination_country(country.code)"><img id="curr" ng-src="http://miramollar.com/cmsc495{{country.img}}">{{ country.code }}</a></li>
                   </ul>
                </div><!-- /btn-group -->
                
