@@ -43,10 +43,15 @@ body{
     padding-right: 5px;
 }
 
-.col-lg-12.display {
+.display {
     height: 200px;
     background-color: lemonchiffon;
     /* padding-top: 20px; */
     border-radius: 20px;
-    margin: 20px 20px 20px 20px;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-bottom: 25px;
+    margin-top: 10px;
+    padding-top: 5%;
+    text-align: center;
 }
