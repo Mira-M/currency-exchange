@@ -9,14 +9,14 @@ angular.module('myApp.ConversionController', ['ngRoute'])
   });
 }])
 
-.controller('ConversionCtrl', [ '$log', '$scope','RestController', function($log, $scope, RestController) {
+.controller('ConversionCtrl', [ '$log', '$scope','RestController', 'ViewController', function($log, $scope, RestController, ViewController) {
 	
 	$scope.set_destination_country = function (destination_country){
 		$scope.destination = destination_country;
 	};
 	
 	$scope.set_base_country = function (base_country){
-		$scope.base= base_country;
+		$scope.base = base_country;
 	};
 	
 	$scope.get_conversion = function(){
@@ -54,9 +54,6 @@ angular.module('myApp.ConversionController', ['ngRoute'])
 		};	
 	};
 	
-		
-
-	
-	$scope.countries = RestController.countries;
+	$scope.countries = ViewController.countries;
 	
 }]);
