@@ -50,8 +50,8 @@ config(['$routeProvider', function($routeProvider) {
 		return $http.get('http://api.fixer.io/latest?base=' + base_country)
 	};
 	
-	this.get_previous_rates = function(previous_date){
-		return $http.get('http://api.fixer.io/' + previous_date)	
+	this.get_previous_rates = function(base_country, previous_date){
+		//Add historical Data Call here	
 	};
 	
 	this.get_current_rate = function(country){
