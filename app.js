@@ -12,20 +12,7 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/conversion'});
 }])
 
-.service('RestController', ['$http', function($http){
-	
-	this.get_latest_rates = function(base_country){
-		return $http.get('http://api.fixer.io/latest?base=' + base_country)
-	};
-	
-	this.get_previous_rates = function(previous_date){
-		return $http.get('http://api.fixer.io/' + previous_date)	
-	};
-	
-	this.get_current_rate = function(country){
-		return $http.get('http://api.fixer.io/latest?symbols=' + country)
-	}
-	
+.service('ViewController', [function(){
 	this.countries =
 	   [{img : '/components/img/AUD_Australia.jpg', full_name : 'Australia', code: 'AUD'},
 		{img : '/components/img/BGN_Bulgaria.jpg', full_name : 'Bulgaria', code: 'BGN'},
@@ -54,6 +41,23 @@ config(['$routeProvider', function($routeProvider) {
 		{img : '/components/img/SGD_Singapore.jpg', full_name : 'Singapore', code: 'SGD'},
 		{img : '/components/img/USD_UnitedStates.jpg', full_name : 'United States', code: 'USD'}	
 	];
+	
+}])
+
+.service('RestController', ['$http', function($http){
+	
+	this.get_latest_rates = function(base_country){
+		return $http.get('http://api.fixer.io/latest?base=' + base_country)
+	};
+	
+	this.get_previous_rates = function(previous_date){
+		return $http.get('http://api.fixer.io/' + previous_date)	
+	};
+	
+	this.get_current_rate = function(country){
+		return $http.get('http://api.fixer.io/latest?symbols=' + country)
+	}
+	
 }]);
 
 
