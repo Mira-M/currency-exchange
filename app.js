@@ -5,10 +5,11 @@ angular.module('myApp', [
   'ngRoute',
   'myApp.ConversionController',
   'myApp.HistoricalController',
-  'myApp.version'
-]).
+  'myApp.version',
+  'ui.bootstrap'
+])
 
-config(['$routeProvider', function($routeProvider) {
+.config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/conversion'});
 }])
 
