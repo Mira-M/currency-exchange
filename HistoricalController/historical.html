@@ -1,5 +1,56 @@
-<p>Let's Show Historical Data Here!</p>
-<p>
-  Showing of 'interpolate' filter:
-  {{ 'Current version is v%VERSION%.' | interpolate }}
-</p>
+<div class="container-fluid">
+  <!--<i class="fa fa-money fa-5x" aria-hidden="true"></i> -->
+  <div class="well">
+    <div class="row">
+      <div class="col-lg-12 display">
+        <div class="row">
+          <div class="col-sm-6" data-ng-if="base">
+            <span data-ng-model="base">{{base}}
+            <p>1.00</p>
+            <p data-ng-model="instant_base_display" data-ng-hide="true" data-ng-cloak> {{ instant_base_display }} </p>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 results">
+          <span data-ng-model="historical"> {{historical}} </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!--This is where the Form begins------------ -->
+  <form role="form">
+    <div class ="row">
+      <div class = "col-sm-6">
+        <div class="input-group">
+          <div class="input-group-btn">
+            <button type = "button" class = "btn btn-default dropdown-toggle"
+            data-toggle = "dropdown">
+              Base Country
+              <span class ="caret"></span>
+            </button>
+            <ul class = "dropdown-menu">
+              <li data-ng-repeat="country in countries"><a href data-ng-click="set_base_country(country.code); get_historical()"><img id="curr" ng-src="http://miramollar.com/cmsc495{{country.img}}">{{country.code}}</a></li>
+            </ul>
+          </div><!-- /btn group -->
+          <input type = "text" id="base-input" class="form-control" data-ng-model="base" value="Enter base country">
+        </div><!-- /input group -->
+        
+        <!-- Date Picker starts here ---------- -->
+          <pre>Selected date is: <em>{{dt | date:'fullDate' }}</em></pre>
+          <h4>Pick any date from Janurary first 1999 to today</h4>
+          <div style="display:inline-block; min-height:90px;">
+            <uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></uib-datepicker>
+          </div>
+            <!--<hr />-->
+            <button type="button" class="btn btn-sm btn-info" ng-click="today()">Today</button>
+            <button type="button" class="btn btn-sm btn-default" ng-click="setDate(1999, 1, 1)">1999-01-1</button>
+            <button type="button" class="btn btn-sm btn-danger" ng-click="clear()">Clear</button>
+            <button type="button" class="btn btn-sm btn-default" ng-click=""
+            <button type="button" class="btn btn-sm btn-default" ng-click="toggleMin()" uib-tooltip="After today restriction">Min date</button>
+      </div><!-- /.col-sm-6 -->
+    </div>
+  </form>
+</div>
