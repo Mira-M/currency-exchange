@@ -61,7 +61,16 @@ body{
     width: 95%;
     margin-left: 2.5%;
     margin-bottom: 25px;
-    margin-top: 10px;
-    padding-top: 5%;
     text-align: center;
+}
+
+.page-footer {
+  background: #1d7303;
+  position: absolute;
+  text-align: center;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  width: 100%;
 }
