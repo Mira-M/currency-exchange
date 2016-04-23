@@ -55,5 +55,6 @@ angular.module('myApp.ConversionController', ['ngRoute'])
 	};
 	
 	$scope.countries = ViewController.countries;
+	$scope.footer_text = ViewController.footer_text;
 	
 }]);
