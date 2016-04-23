@@ -43,6 +43,10 @@ angular.module('myApp', [
 		{img : '/components/img/USD_UnitedStates.jpg', full_name : 'United States', code: 'USD'}	
 	];
 	
+	this.access_key = '6e951159cccd026980477d132c39eb3a';
+	
+	this.footer_text = '© Copyright 2016 Direct Exchange';
+	
 }])
 
 .service('RestController', ['$http', function($http){
@@ -51,8 +55,16 @@ angular.module('myApp', [
 		return $http.get('http://api.fixer.io/latest?base=' + base_country)
 	};
 	
-	this.get_previous_rates = function(base_country, previous_date){
-		//Add historical Data Call here	
+	this.get_previous_rates = function(previous_date, base_country){
+		
+		// This snippet will handle the fact that the API is free and uses EUR by default for all base historical calls
+			if (base_country !== 'EUR'){
+				var base = 'EUR'
+			} else {
+				var base = $scope.base;
+			};
+			
+		return $http.get('http://api.fixer.io/' + previous_date + '?base=' + base)
 	};
 	
 	this.get_current_rate = function(country){
