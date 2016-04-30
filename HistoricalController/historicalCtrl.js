@@ -72,6 +72,10 @@ angular.module('myApp.HistoricalController', ['ngRoute'])
 	
 	var pad = function(n){return n<10 ? '0'+n : n};
 	
+	$scope.clear = function(){
+		$scope.percentage = undefined;
+	};
+	
 	$scope.get_historical = function(base, dt){
 	  $scope.percentage_error = undefined;
 
