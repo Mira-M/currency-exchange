@@ -61,14 +61,19 @@ angular.module('myApp', [
 			if (base_country !== 'EUR'){
 				var base = 'EUR'
 			} else {
-				var base = base_country;
+				var base = 'USD';
 			};
 			
 		return $http.get('http://api.fixer.io/' + previous_date + '?base=' + base)
 	};
 	
 	this.get_current_rate = function(country){
-		return $http.get('http://api.fixer.io/latest?symbols=' + country)
+		
+		if (country !== 'EUR'){
+				return $http.get('http://api.fixer.io/latest?symbols=' + country)
+			} else {
+				return $http.get('http://api.fixer.io/latest?base=USD')
+			};
 	}
 	
 }]);
