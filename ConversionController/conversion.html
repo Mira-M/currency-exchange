@@ -31,7 +31,7 @@
             <div class = "input-group">
                
                <div class = "input-group-btn">
-                  <button type = "button" class = "btn btn-default dropdown-toggle" 
+                  <button type = "button" class = "btn btn-success dropdown-toggle" 
                      data-toggle = "dropdown">
                      Base Country 
                      <span class = "caret"></span>
@@ -73,7 +73,7 @@
 		           uib-typeahead="country.code for country in countries | filter:$viewValue"/>
 		           
                <div class ="input-group-btn">
-                  <button type = "button" class = "btn btn-default dropdown-toggle" 
+                  <button type = "button" class = "btn btn-success dropdown-toggle" 
                      data-toggle = "dropdown">
                      Destination Country 
                      <span class = "caret"></span>
@@ -88,14 +88,13 @@
          </div><!-- /.col-lg-6 -->
          
       </div><!-- /.row -->
-      <button type="submit" class="btn btn-primary" ng-disabled="conversion_form.$invalid">Submit</button>
+      <div class="desubmit">
+      	<button type="submit" class="btn btn-success" ng-disabled="conversion_form.$invalid">Submit</button>
+      </div>
    </form>
 	</div>
 </div>
-   </div>
-     	<div class="col-lg-12 page-footer">
-		<footer role="contentinfo">
-			<p data-ng-model="footer_text" data-ng-cloak>{{ footer_text }}</p>
-		</footer>
-	</div>
 </div>
+</div>
+
+<div defooter></div>
