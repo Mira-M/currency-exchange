@@ -11,60 +11,115 @@ angular.module('myApp.HistoricalController', ['ngRoute'])
   
 }])
 
-.controller('HistoricalCtrl', ['$filter','$log', '$scope', 'RestController', 'ViewController',
-      function($filter, $log, $scope, RestController, ViewController){
+.controller('HistoricalCtrl', ['$uibModal','$filter','$log', '$scope', 'RestController', 'ViewController',
+      function($uibModal, $filter, $log, $scope, RestController, ViewController){
         
   	// set the value of the base county from user selection
 	$scope.set_base_country = function (base_country){
 		$scope.base = base_country;
+		$scope.get_base_rate(base_country);
 	};
 	
-	$scope.set_date = function (date){
-		$scope.date = $scope.dt;
-		$log.debug($scope.date);
+	$scope.testing = function(info){
+		$log.debug("Testing");
+		$log.debug(info);
+	};
+	
+	$scope.get_base_rate = function (base_country){
+		$log.debug("Entering get_base_rate()");
+		$scope.instant_base_display = undefined;
+		$scope.percentage = undefined;
+		
+		base_country = $filter('uppercase')(base_country);
+		$log.debug(base_country);
+		
+		if (base_country !== undefined){
+			var included = $filter('filter')($scope.countries, {$:base_country});
+			$log.debug(included);
+			
+			var valid = base_country.length === 3;
+			
+			if (!valid){
+				$scope.instant_base_display = "Country Code must be 3 characters."
+			}
+			
+			if (included === undefined){
+				$scope_instant_base_display = base_country + " is not in our database."
+			}
+			
+			
+			if (included !== undefined && valid){
+				$log.debug("DEFINED");
+				
+				RestController.get_current_rate(base_country)
+					.then(function(response){
+						$scope.current_rate = response.data;
+						$log.debug('$scope.current_rate');
+						$log.debug($scope.current_rate);
+						$scope.parse_country = $scope.current_rate.rates[base_country];
+						
+						if ($scope.parse_country !== undefined){
+							$scope.instant_base_display = $scope.parse_country;
+						} else {
+							//THROW SOME EXCEPTION HERE, MODAL WITH SOMETHING OR SOMETHING
+							$scope.instant_base_display = "Results for this country not available."
+						}	
+				});
+			};
+		};
+
 	};
 	
 	var pad = function(n){return n<10 ? '0'+n : n};
 	
-	$scope.get_historical = function(){
+	$scope.get_historical = function(base, dt){
+	  $scope.percentage_error = undefined;
+
 	  $log.debug("Entering Get Historical");
-	
+	  $log.debug(base);
+	  $log.debug(dt);
+	  
+	  base = $filter('uppercase')(base);
+	  $log.debug(base);
+		
 	  // get the rates based on the histocial date from user input
-		if ($scope.base !== undefined && $scope.date !== undefined){
+		if (base !== undefined && dt !== undefined){
 			
-			$scope.date = $filter('date')($scope.date, 'yyyy-MM-dd');
+			var included = $filter('filter')($scope.countries, {$:base});
 			
-			$log.debug($scope.date);
+			if (included !== undefined){
+				
+				dt = $filter('date')(dt, 'yyyy-MM-dd');
 			
-			RestController.get_previous_rates($scope.date, $scope.base)
-				.then(function(response){
-					$scope.previous_rate = response.data;
-					$scope.historical = $scope.previous_rate.rates[$scope.base];
-					
-					if ($scope.historical === undefined){
-						$scope.modalInstance();
-					}
-  				
-	  				// calculate the percentage of change from historical date
-	  				$scope.percentage = (($scope.historical - $scope.instant_base_display) / $scope.historical) * 100;
-	  				
-	  				$log.debug($scope.previous_rate);
-	  				$log.debug($scope.historical);
+				$log.debug(dt);
+			
+				RestController.get_previous_rates(dt, base)
+					.then(function(response){
+						$scope.previous_rate = response.data;
+						var parse_country = $scope.previous_rate.rates[base];
+						
+						
+						parse_country = $scope.previous_rate.rates[base];
+						$log.debug(parse_country);
+							
+							if (parse_country !== undefined){
+								
+								$scope.percentage = ((parse_country - $scope.instant_base_display) / parse_country) * 100;
+								
+							} else {
+								$scope.percentage_error = "Results for this date/country combination not available."
+							}
+	
 				});
-		};
-		
-		if ($scope.base !== undefined){
-			RestController.get_current_rate($scope.base)
-				.then(function(response){
-					$scope.current_rate = response.data;
-					$scope.instant_base_display = $scope.current_rate.rates[$scope.base];
-			});
-		};
-		
-		if ($scope.date !== undefined){
-			$scope.instant_date_display = $scope.date;
+				
+			} else {
+				$scope.percentage = base + " is was not found in our database.";
+				
+			}; 
 		};	
 	};
+	
+
 	
 	// pull country list from the ViewController
 	$scope.countries = ViewController.countries;
@@ -90,6 +145,7 @@ var modalInstance = $uibModal.open({
 //------------------------------ DATE PICKER ---------------------------------	
   $scope.today = function() {
     $scope.dt = new Date();
+    $scope.dt.setDate($scope.dt.getDate() - 2)
   };
   $scope.today();
 
@@ -105,10 +161,10 @@ var modalInstance = $uibModal.open({
   };
   
   var next_day = new Date();
-  next_day.setDate(next_day.getDate() + 1)
+  next_day.setDate(next_day.getDate() - 2);
   
   $scope.dateOptions = {
-    dateDisabled: disabled,
+    //dateDisabled: disabled,
     formatYear: 'yy',
     maxDate: next_day,
     startingDay: 0
