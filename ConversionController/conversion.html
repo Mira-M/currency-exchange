@@ -17,8 +17,9 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-lg-12 results">
-						<span data-ng-model="conversion"> {{ conversion }} </span>
+					<div class="col-lg-12 results" data-ng-if="conversion">
+						<span> Conversion
+						<p data-ng-model="conversion">{{ conversion }} </p></span>
 					</div>
 				</div>
 			</div>
