@@ -40,7 +40,7 @@
 		               <p data-ng-show="historical_form.base-input.$error.minlength" class="help-block">Please Enter 3 digit Country Code</p>
 					   <p data-ng-show="historical_form.base-input.$error.maxlength" class="help-block">Maximum 3 characters</p>
 					   
-	                  <button type="button" class="btn btn-default dropdown-toggle" 
+	                  <button type="button" class="btn btn-success dropdown-toggle" 
 	                     data-toggle = "dropdown">
 	                     Base Country 
 	                     <span class = "caret"></span>
@@ -75,25 +75,24 @@
 		            ng-required="true" 
 		            close-text="Close" 
 		            alt-input-formats="altInputFormats" 
-		            data-ng-change="set_date(); clear()"/>
+		            data-ng-change="set_date()"/>
 		          <span class="input-group-btn">
-		            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+		            <button type="button" class="btn btn-success" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
 		          </span>
 	               
 	            </div><!-- /input-group -->
 	         </div><!-- /.col-lg-6 -->
 	      </div><!-- /.row -->
 	      <!-- <input type="submit" class="btn btn-primary" data-ng-click="get_historical()" value="GO!"></input> -->
-	      <button type="submit" class="btn btn-primary" ng-disabled="historical_form.$invalid">Submit</button>
+	      <div class="desubmit">
+	      	<button type="submit" class="btn btn-success" ng-disabled="historical_form.$invalid">Submit</button>
+	      </div>
 	   </form>
 
 	</div>
 </div>
 
    </div>
-     	<div class="col-lg-12 page-footer">
-		<footer role="contentinfo">
-			<p data-ng-model="footer_text" data-ng-cloak>{{ footer_text }}</p>
-		</footer>
-	</div>
 </div>
+
+<div defooter></div>
