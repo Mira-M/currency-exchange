@@ -61,7 +61,7 @@ angular.module('myApp', [
 			if (base_country !== 'EUR'){
 				var base = 'EUR'
 			} else {
-				var base = $scope.base;
+				var base = base_country;
 			};
 			
 		return $http.get('http://api.fixer.io/' + previous_date + '?base=' + base)
