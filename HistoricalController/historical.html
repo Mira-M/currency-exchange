@@ -1,70 +1,95 @@
-<div class="container-fluid">
+<div class="container-fluid typeahead">
 	<div class="well">
+		<!-- RESULTS DISPLAY AREA -->
 		<div class="row">
 			<div class="col-lg-12 display">
 				<div class="row">
-					<div class="col-sm-6" data-ng-if="base">
-						<span data-ng-model="base">{{ base }}
+					<div class="col-sm-6">
+						<span data-ng-model="base" data-ng-if="base">{{ base }}
 							<p data-ng-model="instant_base_display" data-ng-cloak> {{ instant_base_display }} </p> 
 						</span>
 					</div>
-					<div class="col-sm-6" data-ng-if="date">
-						<span data-ng-model="date"> Date
-							<p data-ng-model="instant_date_display" data-ng-cloak> {{ instant_date_display }}</p>  
+					<div class="col-sm-6">
+						<span data-ng-model="dt" data-ng-if="dt"> Date
+							<p data-ng-model="dt" data-ng-cloak> {{ dt | date:'MM-dd-yyyy' }}</p>  
 						</span>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-lg-12 results" data-ng-if="percentage">
+					<div class="col-lg-12 results" data-ng-if="percentage && !percentage_error">
 						<span> Percent Change <p data-ng-model="percentage">{{ percentage | number:2 }}%</p> </span>
+					</div>
+					<div class="col-lg-12 results" data-ng-if="!percentage && base && dt && !percentage_error">
+						<span> Click submit to see percent change! </span>
+					</div>
+					<div class="col-lg-12 results" data-ng-hide="!percentage_error">
+						<span data-ng-model="percentage_error" data-ng-cloak> {{ percentage_error }} </span>
 					</div>
 				</div>
 			</div>
 		</div>
-   <form role = "form">
-      <div class = "row">
-         
-         <div class = "col-sm-6">
-            <div class = "input-group">
-               
-               <div class = "input-group-btn">
-                  <button type = "button" class = "btn btn-default dropdown-toggle" 
-                     data-toggle = "dropdown">
-                     Base Country 
-                     <span class = "caret"></span>
-                  </button>
-                  
-                  <ul class = "dropdown-menu">
-                     <li data-ng-repeat="country in countries"><a href data-ng-click="set_base_country(country.code); get_historical()"><img id="curr" ng-src="http://miramollar.com/cmsc495{{country.img}}">{{ country.code }}</a></li>
-                  </ul>
-               </div><!-- /btn-group -->
-               
-               <input type ="text" id="base-input" class = "form-control" data-ng-model="base" value="{{ base }}">
-            </div><!-- /input-group -->
-         </div><!-- /.col-lg-6 -->
-         
-         <div class = "col-sm-6">
-            <div class = "input-group">
-               
-            <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
-	            ng-model="dt" is-open="popup1.opened"
-	            min="'1999-01-01'"
-	            datepicker-options="dateOptions" 
-	            ng-required="true" 
-	            close-text="Close" 
-	            alt-input-formats="altInputFormats" 
-	            data-ng-change="set_date(); get_historical()"/>
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-          </span>
-               
-            </div><!-- /input-group -->
-         </div><!-- /.col-lg-6 -->
-         
-      </div><!-- /.row -->
-   </form>
+
+		<!-- FORM -->
+
+	   <form role="form" name="historical_form" ng-submit="get_historical(base, dt)" novalidate>
+	      <div class="row">
+	         <div class="col-sm-6">
+	            <div class="input-group">
+	               <div class="input-group-btn">
+		               
+		               <p data-ng-show="historical_form.base-input.$error.minlength" class="help-block">Please Enter 3 digit Country Code</p>
+					   <p data-ng-show="historical_form.base-input.$error.maxlength" class="help-block">Maximum 3 characters</p>
+					   
+	                  <button type="button" class="btn btn-default dropdown-toggle" 
+	                     data-toggle = "dropdown">
+	                     Base Country 
+	                     <span class = "caret"></span>
+	                  </button>
+	                  
+	                  <ul class = "dropdown-menu">
+	                     <li data-ng-repeat="country in countries"><a href data-ng-click="set_base_country(country.code)"><img id="curr" ng-src="http://miramollar.com/cmsc495{{country.img}}">{{ country.code }}</a></li>
+	                  </ul>
+	               </div><!-- /btn-group -->
+	               <input type ="text" 
+		               id="base-input" 
+		               class="form-control"
+		               name="base-input"
+		               data-ng-class="{ error : historical_form.base-input.$invalid && !historical_form.base-input.$pristine }"
+		               data-ng-minlength="3"
+		               data-ng-maxlength="3"
+		               data-ng-model="base" 
+		               value="{{ base | uppercase }}" 
+		               data-ng-change="get_base_rate(base)"
+		               required="true"
+		               uib-typeahead="country.code for country in countries | filter:$viewValue"/>
+	            </div><!-- /input-group -->
+	         </div><!-- /.col-lg-6 -->
+	         
+	         <div class = "col-sm-6">
+	            <div class = "input-group">
+	               
+	            <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
+		            ng-model="dt" is-open="popup1.opened"
+		            min="'1999-01-01'"
+		            datepicker-options="dateOptions" 
+		            ng-required="true" 
+		            close-text="Close" 
+		            alt-input-formats="altInputFormats" 
+		            data-ng-change="set_date(); clear()"/>
+		          <span class="input-group-btn">
+		            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+		          </span>
+	               
+	            </div><!-- /input-group -->
+	         </div><!-- /.col-lg-6 -->
+	      </div><!-- /.row -->
+	      <!-- <input type="submit" class="btn btn-primary" data-ng-click="get_historical()" value="GO!"></input> -->
+	      <button type="submit" class="btn btn-primary" ng-disabled="historical_form.$invalid">Submit</button>
+	   </form>
+
 	</div>
 </div>
+
    </div>
      	<div class="col-lg-12 page-footer">
 		<footer role="contentinfo">
