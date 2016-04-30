@@ -6,8 +6,8 @@
 				<div class="row">
 					<div class="col-sm-6" data-ng-if="base">
 						<span data-ng-model="base">{{ base }}
-							<p>1.00</p>
-							<p data-ng-model="instant_base_display" data-ng-hide="true" data-ng-cloak> {{ instant_base_display }} </p> 
+							<p data-ng-if="base_display_message" data-ng-model="base_display_message" data-ng-cloak> {{ base_display_message }} </p>
+							<p data-ng-if="base_display_number" data-ng-model="base_display_number" data-ng-cloak> {{ base_display_number | number:2 }} </p>
 						</span>
 					</div>
 					<div class="col-sm-6" data-ng-if="destination">
@@ -23,8 +23,8 @@
 					</div>
 				</div>
 			</div>
-		</div>
-   <form role = "form">
+		</div> 
+   <form role = "form" name="conversion_form" ng-submit="get_conversion(base, destination)">
       <div class = "row">
          
          <div class = "col-sm-6">
@@ -38,28 +38,49 @@
                   </button>
                   
                   <ul class = "dropdown-menu">
-                     <li data-ng-repeat="country in countries"><a href data-ng-click="set_base_country(country.code); get_conversion()"><img id="curr" ng-src="http://miramollar.com/cmsc495{{country.img}}">{{ country.code }}</a></li>
+                     <li data-ng-repeat="country in countries"><a href data-ng-click="set_base_country(country.code)"><img id="curr" ng-src="http://miramollar.com/cmsc495{{country.img}}">{{ country.code }}</a></li>
                   </ul>
                </div><!-- /btn-group -->
                
-               <input type ="text" id="base-input" class = "form-control" data-ng-model="base" value="{{ base }}">
+               <input type ="text" 
+	               id="base-input"
+	               name="base-input"
+	               class="form-control" 
+	               data-ng-model="base"
+	               data-ng-class="{ error : conversion_form.base-input.$invalid && !conversion_form.base-input.$pristine }"
+		           data-ng-minlength="3"
+		           data-ng-maxlength="3"
+	               value="{{ base | uppercase}}"
+	               required="true"
+	               data-ng-change="get_base_rate(base)"
+		           uib-typeahead="country.code for country in countries | filter:$viewValue">
             </div><!-- /input-group -->
          </div><!-- /.col-lg-6 -->
          
          <div class = "col-sm-6">
             <div class = "input-group">
-               
-               <input type ="text" id="destination-input" class = "form-control" data-ng-model="destination" value="{{ destination }}">
+               <input type ="text" 
+		           id="destination-input" 
+		           name="destination-input"
+		           class = "form-control"
+		           data-ng-model="destination"
+		           data-ng-class="{ error : conversion_form.destination-input.$invalid && !conversion_form.destination-input.$pristine }"
+		           data-ng-minlength="3"
+		           data-ng-maxlength="3"
+		           value="{{ destination | uppercase }}"
+		           required="true"
+		           data-ng-change="get_destination_rate(destination)"
+		           uib-typeahead="country.code for country in countries | filter:$viewValue"/>
+		           
                <div class ="input-group-btn">
-                  
                   <button type = "button" class = "btn btn-default dropdown-toggle" 
                      data-toggle = "dropdown">
                      Destination Country 
                      <span class = "caret"></span>
                   </button>
                   
-                  <ul class = "dropdown-menu pull-right">
-                     <li data-ng-repeat="country in countries"><a href data-ng-click="set_destination_country(country.code); get_conversion()"><img id="curr" ng-src="http://miramollar.com/cmsc495{{country.img}}">{{ country.code }}</a></li>
+                  <ul class="dropdown-menu pull-right">
+                     <li data-ng-repeat="country in countries"><a href data-ng-click="set_destination_country(country.code)"><img id="curr" ng-src="http://miramollar.com/cmsc495{{country.img}}">{{ country.code }}</a></li>
                   </ul>
                </div><!-- /btn-group -->
                
@@ -67,6 +88,7 @@
          </div><!-- /.col-lg-6 -->
          
       </div><!-- /.row -->
+      <button type="submit" class="btn btn-primary" ng-disabled="conversion_form.$invalid">Submit</button>
    </form>
 	</div>
 </div>
