@@ -13,6 +13,15 @@ angular.module('myApp', [
   $routeProvider.otherwise({redirectTo: '/conversion'});
 }])
 
+.directive("defooter", function() {
+	return {
+		restrict : 'A',
+		templateUrl : 'footer.html',
+		scope : true,
+		transclude : false
+	};
+})
+
 .service('ViewController', [function(){
 	this.countries =
 	   [{img : '/components/img/AUD_Australia.jpg', full_name : 'Australia', code: 'AUD'},
