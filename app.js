@@ -29,7 +29,7 @@ angular.module('myApp', [
 		{img : '/components/img/BRL_Brazil.jpg', full_name : 'Brazil', code: 'BRL'},
 		{img : '/components/img/CAD_Canada.jpg', full_name : 'Canada', code: 'CAD'},
 		{img : '/components/img/CHF_Swiss.jpg', full_name : 'Switzerland', code: 'CHF'},
-		{img : '/components/img/CHY_China.jpg', full_name : 'China', code: 'CHY'},
+		{img : '/components/img/CHY_China.jpg', full_name : 'China', code: 'CNY'},
 		{img : '/components/img/CZK_CzechRepub.jpg', full_name : 'Czech Republic', code: 'CZK'},
 		{img : '/components/img/DKK_Denmark.jpg', full_name : 'Denmark', code: 'DKK'},
 		{img : '/components/img/EUR_Europe.jpg', full_name : 'Europe', code: 'EUR'},
