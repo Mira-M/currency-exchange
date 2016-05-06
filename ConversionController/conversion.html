@@ -38,7 +38,7 @@
                   </button>
                   
                   <ul class = "dropdown-menu">
-                     <li data-ng-repeat="country in countries"><a href data-ng-click="set_base_country(country.code)"><img id="curr" ng-src="http://miramollar.com/cmsc495{{country.img}}">{{ country.code }}</a></li>
+                     <li data-ng-repeat="country in countries"><a href data-ng-click="set_base_country(country.code); get_base_rate(base)"><img id="curr" ng-src="http://miramollar.com/cmsc495{{country.img}}">{{ country.code }}</a></li>
                   </ul>
                </div><!-- /btn-group -->
                
@@ -80,7 +80,7 @@
                   </button>
                   
                   <ul class="dropdown-menu pull-right">
-                     <li data-ng-repeat="country in countries"><a href data-ng-click="set_destination_country(country.code)"><img id="curr" ng-src="http://miramollar.com/cmsc495{{country.img}}">{{ country.code }}</a></li>
+                     <li data-ng-repeat="country in countries"><a href data-ng-click="set_destination_country(country.code); get_destination_rate(destination)"><img id="curr" ng-src="http://miramollar.com/cmsc495{{country.img}}">{{ country.code }}</a></li>
                   </ul>
                </div><!-- /btn-group -->
                
