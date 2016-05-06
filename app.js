@@ -52,6 +52,7 @@ angular.module('myApp', [
 		{img : '/components/img/USD_UnitedStates.jpg', full_name : 'United States', code: 'USD'}	
 	];
 	
+	
 	this.access_key = '6e951159cccd026980477d132c39eb3a';
 	
 	this.footer_text = '© Copyright 2016 Direct Exchange';
